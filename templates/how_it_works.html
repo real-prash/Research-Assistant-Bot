@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How it Works - Research Assistant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <style>
+        body {
+            background: #f4f6f9;
+            color: #333;
+            padding-bottom: 50px;
+        }
+        .header-section {
+            background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .diagram-img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .step-number {
+            background: #7F7FD5;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        h3 { 
+            color: #555; 
+            margin-top: 20px;
+        }
+        .about-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .about-links a {
+            margin: 0 10px;
+            color: #7F7FD5;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .about-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <div class="container">
+            <h1><i class="fas fa-project-diagram"></i> Architecture & Workflow</h1>
+            <p class="lead">Under the hood of the Multi-Agent Research System</p>
+            <a href="/" class="btn btn-light mt-3">
+                <i class="fas fa-comment-dots"></i> Back to Chat
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div class="row mb-5">
+            <div class="col-md-8 offset-md-2 text-center">
+                <h2>Our Goal</h2>
+                <p class="text-muted">
+                    We built a lightweight, multi-agent system around chat models to customize the research process. 
+                    Unlike standard chatbots, this system employs a team of specialized "AI Analysts" to conduct parallel research 
+                    and synthesize a final report.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h3><span class="step-number">1</span>The Main Graph</h3>
+                <p>The system follows a strict state-machine workflow:</p>
+                <ul>
+                    <li><strong>Planning:</strong> Users provide a topic.</li>
+                    <li><strong>Analyst Generation:</strong> The Planner (Llama 70B) creates specific analyst personas.</li>
+                    <li><strong>Human-in-the-loop:</strong> You can approve or edit these analysts.</li>
+                    <li><strong>Parallel Execution:</strong> Once approved, the system fans out to conduct interviews.</li>
+                    <li><strong>Synthesis:</strong> All interviews are reduced into a final report.</li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{{ url_for('static', filename='images/full_graph.png') }}" class="diagram-img" alt="Main Graph">
+                <p class="small text-muted">Figure 1: High-Level State Graph</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mb-5 mt-5">
+            <div class="col-md-5 order-md-2">
+                <h3><span class="step-number">2</span>Planning & HITL</h3>
+                <div class="feature-card">
+                    <h5>Human-in-the-Loop</h5>
+                    <p>
+                        Research demands customization. Before the expensive research process begins, 
+                        the system generates a team of analysts.
+                    </p>
+                    <ul>
+                        <li><strong>Input:</strong> "The Future of AI"</li>
+                        <li><strong>System:</strong> Generates "Tech Analyst", "Economic Analyst", "Ethics Analyst".</li>
+                        <li><strong>You:</strong> Can refine these (e.g., "Add a Startup perspective").</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 order-md-1 text-center">
+                 <img src="{{ url_for('static', filename='images/analyst_graph.png') }}" 
+                      class="diagram-img" 
+                      style="max-height: 400px;" 
+                      alt="Analyst Creation Subgraph">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mb-5 mt-5">
+            <div class="col-md-12">
+                <h3><span class="step-number">3</span>The Interview Process (Parallelization)</h3>
+                <p>
+                    Each analyst conducts an in-depth interview with an Expert AI using the 
+                    <strong>STORM</strong> methodology.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                 <img src="{{ url_for('static', filename='images/interview_graph.png') }}" 
+                      class="diagram-img" 
+                      alt="Interview Subgraph">
+            </div>
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <h5>How it works:</h5>
+                    <p><strong>1. Generate Question:</strong> The analyst asks a specific question based on their persona.</p>
+                    <p><strong>2. Tool Utilization:</strong> The Expert gathers info using:</p>
+                    <ul>
+                        <li><i class="fas fa-globe"></i> <strong>Tavily Search:</strong> For real-time web results.</li>
+                        <li><i class="fab fa-wikipedia-w"></i> <strong>Wikipedia:</strong> For foundational knowledge.</li>
+                    </ul>
+                    <p>
+                        <strong>3. Map-Reduce:</strong> All interviews happen simultaneously (Parallel), 
+                        significantly speeding up the research process.
+                    </p>
+                    <p>
+                        <strong>4. Citations:</strong> Sources are programmatically tracked and passed to the final report.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2 text-center">
+                <div class="about-card">
+                    <h4>Created by Prashant Nigam</h4>
+                    <p class="text-muted">
+                        I’m a full-stack software developer with a strong interest in AI systems, 
+                        distributed workflows, and building practical tools on top of modern LLMs.
+                    </p>
+                    <div class="about-links">
+                        <a href="https://github.com/real-prash" target="_blank">
+                            <i class="fab fa-github"></i> github.com/real-prash
+                        </a>
+                        •
+                        <a href="https://linkedin.com/in/realprash" target="_blank">
+                            <i class="fab fa-linkedin"></i> linkedin.com/in/realprash
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="text-center py-4 text-muted bg-light border-top mt-5">
+        <p>&copy; 2026 AI Research Assistant | Built by Prashant Nigam</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+langgraph
+langgraph-prebuilt
+langgraph-sdk
+langgraph-checkpoint-sqlite
+langgraph-cli[inmem]
+langsmith
+langchain-core
+langchain-community
+langchain-groq
+langchain-openai
+langchain-tavily
+tavily-python
+wikipedia
+trustcall
+pydantic
+python-dotenv
+ipykernel
+notebook
+flask
+markdown
+-e .
