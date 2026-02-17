@@ -18,4 +18,3 @@ ipykernel
 notebook
 flask
 markdown
--e .
