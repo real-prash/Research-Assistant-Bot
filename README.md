@@ -8,7 +8,7 @@
 A web-based **Autonomous Research Agent** powered by LangGraph, Groq, and Llama 3. It orchestrates a team of AI analysts to plan, research, and synthesize detailed reports on any topic using real-time web data.
 
 🔗 **Live Demo:** 
-
+[text](https://research-assistant-bot-qmfr.vercel.app/)
 ---
 
 ## 🧠 How it Works
